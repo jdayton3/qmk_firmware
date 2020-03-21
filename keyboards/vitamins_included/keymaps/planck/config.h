@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define EE_HANDS
 //#define MASTER_LEFT
 //#define MASTER_RIGHT
-
+#define RGBLIGHT_SPLIT
 
 #ifdef AUDIO_ENABLE
   #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
