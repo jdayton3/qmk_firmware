@@ -1,17 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "quantum.h"
-#include "rgblight.h"
 
 // Layer names
 enum{
   // - Base layer:
-  _BASE,
-  // - Symbols, numbers, and functions:
-  _FN,
-  // - Alternate Function layer:
-  _LN,
-    // - HYPE-BOI Function layer:
-  _HYPE
+  _BASE
 };
 
 //Tap Dance Declarations
@@ -25,12 +18,21 @@ enum {
   TD_CTRL_A = 6,
   TD_P_BSLS = 7,
   TD_QUOTE = 8,
-  TD_SDCOL = 9
+  TD_SDCOL = 9,
+  TD_1 = 10,
+  TD_2 = 11,
+  TD_3 = 12,
+  TD_4 = 13,
+  TD_5 = 14,
+  TD_6 = 15,
+  TD_7 = 16,
+  TD_8 = 17,
+  TD_9 = 18,
+  TD_0 = 19,
 };
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for /?, twice for Enter
   [TD_QUES_ENT]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_ENT),
   [TD_SPC_SHFT]  = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_LSFT),
   [TD_CTRL_Z]    = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
@@ -40,111 +42,98 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CTRL_A]    = ACTION_TAP_DANCE_DOUBLE(KC_A, LCTL(KC_A)),
   [TD_P_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSLS),
   [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
-  [TD_SDCOL]       = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN)
+  [TD_SDCOL]       = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),
+  [TD_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_EXLM),
+  [TD_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_AT),
+  [TD_3] = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_HASH),
+  [TD_4] = ACTION_TAP_DANCE_DOUBLE(KC_4, KC_DLR),
+  [TD_5] = ACTION_TAP_DANCE_DOUBLE(KC_5, KC_PERC),
+  [TD_6] = ACTION_TAP_DANCE_DOUBLE(KC_6, KC_CIRC),
+  [TD_7] = ACTION_TAP_DANCE_DOUBLE(KC_7, KC_AMPR),
+  [TD_8] = ACTION_TAP_DANCE_DOUBLE(KC_8, KC_ASTR),
+  [TD_9] = ACTION_TAP_DANCE_DOUBLE(KC_9, KC_LPRN),
+  [TD_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_RPRN),
 // Other declarations would go here, separated by commas, if you have them
 };
 
 enum combos {
-  combo_ESC,
-  combo_BACK,
-  combo_TAB,
-  combo_PINKYCTRL,
-  combo_DELETE,
-  combo_ALT
+  cmb_Q, cmb_W, cmb_E, cmb_R, cmb_T, cmb_Y, cmb_U, cmb_I, cmb_O, cmb_P,
+  cmb_A, cmb_S, cmb_D, cmb_F, cmb_G, cmb_H, cmb_J, cmb_K, cmb_L, cmb_COLON,
+  cmb_Z, cmb_X, cmb_C, cmb_V, cmb_B, cmb_N, cmb_M, cmb_LT, cmb_GT, cmb_QUES
 };
 
-const uint16_t PROGMEM esc_combo[] = {KC_1, KC_2, COMBO_END};
-const uint16_t PROGMEM bspc_combo[] = {KC_9, KC_0, COMBO_END};
-const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM pinkyctrl_combo[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM del_combo[] = {KC_1, KC_0, COMBO_END};
-const uint16_t PROGMEM alt_combo[] = {KC_COMM, KC_DOT, COMBO_END};
+const uint16_t PROGMEM Q_cmb[] = {KC_Q, KC_1, COMBO_END};
+const uint16_t PROGMEM W_cmb[] = {KC_W, KC_2, COMBO_END};
+const uint16_t PROGMEM E_cmb[] = {KC_E, KC_3, COMBO_END};
+const uint16_t PROGMEM R_cmb[] = {KC_R, KC_4, COMBO_END};
+const uint16_t PROGMEM T_cmb[] = {KC_T, KC_5, COMBO_END};
+const uint16_t PROGMEM Y_cmb[] = {KC_Y, KC_6, COMBO_END};
+const uint16_t PROGMEM U_cmb[] = {KC_U, KC_7, COMBO_END};
+const uint16_t PROGMEM I_cmb[] = {KC_I, KC_8, COMBO_END};
+const uint16_t PROGMEM O_cmb[] = {KC_O, KC_9, COMBO_END};
+const uint16_t PROGMEM P_cmb[] = {KC_P, KC_0, COMBO_END};
+const uint16_t PROGMEM A_cmb[] = {KC_A, KC_Q, COMBO_END};
+const uint16_t PROGMEM S_cmb[] = {KC_S, KC_W, COMBO_END};
+const uint16_t PROGMEM D_cmb[] = {KC_D, KC_E, COMBO_END};
+const uint16_t PROGMEM F_cmb[] = {KC_F, KC_R, COMBO_END};
+const uint16_t PROGMEM G_cmb[] = {KC_G, KC_T, COMBO_END};
+const uint16_t PROGMEM H_cmb[] = {KC_H, KC_Y, COMBO_END};
+const uint16_t PROGMEM J_cmb[] = {KC_J, KC_U, COMBO_END};
+const uint16_t PROGMEM K_cmb[] = {KC_K, KC_I, COMBO_END};
+const uint16_t PROGMEM L_cmb[] = {KC_L, KC_O, COMBO_END};
+const uint16_t PROGMEM COLON_cmb[] = {KC_SCLN, KC_P, COMBO_END};
+const uint16_t PROGMEM Z_cmb[] = {KC_Z, KC_A, COMBO_END};
+const uint16_t PROGMEM X_cmb[] = {KC_X, KC_S, COMBO_END};
+const uint16_t PROGMEM C_cmb[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM V_cmb[] = {KC_V, KC_F, COMBO_END};
+const uint16_t PROGMEM B_cmb[] = {KC_B, KC_G, COMBO_END};
+const uint16_t PROGMEM N_cmb[] = {KC_N, KC_H, COMBO_END};
+const uint16_t PROGMEM M_cmb[] = {KC_M, KC_J, COMBO_END};
+const uint16_t PROGMEM LT_cmb[] = {KC_COMM, KC_K, COMBO_END};
+const uint16_t PROGMEM GT_cmb[] = {KC_DOT, KC_L, COMBO_END};
+const uint16_t PROGMEM QUES_cmb[] = {KC_SLSH, KC_SCLN, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
-  [combo_ESC] = COMBO(esc_combo, KC_ESC),
-   [combo_BACK] = COMBO(bspc_combo, KC_BSPC),
-    [combo_TAB] = COMBO(tab_combo, KC_TAB),
-     [combo_PINKYCTRL] = COMBO(pinkyctrl_combo, KC_LCTRL),
-      [combo_DELETE] = COMBO(del_combo, KC_DEL),
-       [combo_ALT] = COMBO(alt_combo, KC_LALT)
+combo_t key_combos[] = {
+  [cmb_Q] = COMBO(Q_cmb, LSFT(KC_Q)),
+  [cmb_W] = COMBO(W_cmb, LSFT(KC_W)),
+  [cmb_E] = COMBO(E_cmb, LSFT(KC_E)),
+  [cmb_R] = COMBO(R_cmb, LSFT(KC_R)),
+  [cmb_T] = COMBO(T_cmb, LSFT(KC_T)),
+  [cmb_Y] = COMBO(Y_cmb, LSFT(KC_Y)),
+  [cmb_U] = COMBO(U_cmb, LSFT(KC_U)),
+  [cmb_I] = COMBO(I_cmb, LSFT(KC_I)),
+  [cmb_O] = COMBO(O_cmb, LSFT(KC_O)),
+  [cmb_P] = COMBO(P_cmb, LSFT(KC_P)),
+  [cmb_A] = COMBO(A_cmb, LSFT(KC_A)),
+  [cmb_S] = COMBO(S_cmb, LSFT(KC_S)),
+  [cmb_D] = COMBO(D_cmb, LSFT(KC_D)),
+  [cmb_F] = COMBO(F_cmb, LSFT(KC_F)),
+  [cmb_G] = COMBO(G_cmb, LSFT(KC_G)),
+  [cmb_H] = COMBO(H_cmb, LSFT(KC_H)),
+  [cmb_J] = COMBO(J_cmb, LSFT(KC_J)),
+  [cmb_K] = COMBO(K_cmb, LSFT(KC_K)),
+  [cmb_L] = COMBO(L_cmb, LSFT(KC_L)),
+  [cmb_COLON] = COMBO(COLON_cmb, LSFT(KC_SCLN)),
+  [cmb_Z] = COMBO(Z_cmb, LSFT(KC_Z)),
+  [cmb_X] = COMBO(X_cmb, LSFT(KC_X)),
+  [cmb_C] = COMBO(C_cmb, LSFT(KC_C)),
+  [cmb_V] = COMBO(V_cmb, LSFT(KC_V)),
+  [cmb_B] = COMBO(B_cmb, LSFT(KC_B)),
+  [cmb_N] = COMBO(N_cmb, LSFT(KC_N)),
+  [cmb_M] = COMBO(M_cmb, LSFT(KC_M)),
+  [cmb_LT] = COMBO(LT_cmb, LSFT(KC_COMM)),
+  [cmb_GT] = COMBO(GT_cmb, LSFT(KC_DOT)),
+  [cmb_QUES] = COMBO(QUES_cmb, LSFT(KC_SLSH))
 };
 
-enum custom_keycodes {
-  PASTA = SAFE_RANGE,
-  DBLBK,
-  ALLCOPY
-};
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case PASTA:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("HERE WE GO BOYS! The [INSERT SUB-60 KEYBOARD HERE] layout is the greatest thing ever let me tell you sir. First of all class ic inspirations on the [Keyboard] blocker style IT also has the ; and ' kjeys unless other competitors in the 40% space which I find completely unreplaceable in layers it also has extra keys for macros (read: artisans- I absolutely love the layout where you have numbers/!@#$%^ that replace qwerty it means i can type for long periods of time without twisting my hands at all whereas on a normal board you ahve to twist your wrists sometimes to type for me I just have to hold down left space and click asdf to get to numbers It's also just gorgeous IMO Ano quality is good, engraving is good, I like how he made it so you can buy a 40% sized board/layout but not need to buy 40% sized modifiers for your keyboard so you can use base kits and uh yeah that's it That's why the [INSERT SUB-60 KEYBOARD HERE] is my every day board I literally am typing on it right now and have used it every single day at work for the last 4 months 0 inftention to ever stop");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case DBLBK:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("[]" SS_TAP(X_LEFT));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-    case ALLCOPY:
-      if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("ac")); // selects all and copies
-      }
-      break;
-  }
-  return true;
-};
-
-
-#define FN MO(_FN)
-#define LN MO(_LN)
-
-#define xxx KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_BASE] = LAYOUT_split_space_base(
-        KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
+        TD(TD_1), TD(TD_2), TD(TD_3), TD(TD_4), TD(TD_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_0),
 		KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P,
-		KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,  FN,
-		KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, TD(TD_QUES_ENT),
-                xxx, xxx, MT(MOD_LSFT, KC_SPC), xxx
-  ),
-
-	[_FN] = LAYOUT_split_space_base(
-    TD(TD_QUOTE),      xxx,      xxx,     xxx,     xxx,     xxx,      xxx,       xxx,     KC_PLUS,      KC_MINS,
-		TD(TD_SDCOL),     KC_UP,     xxx,     xxx,     xxx,     xxx,      xxx,       xxx,      KC_EQL,      KC_UNDS,
-		KC_LEFT,         KC_DOWN,  KC_RGHT,   xxx,     xxx,     xxx,     DBLBK,      xxx,   TD(TD_SDCOL),     xxx,
-		xxx,               xxx,      xxx,     xxx,     xxx,     xxx,    KC_LCBR,   KC_RCBR,     xxx,       	KC_BSLS,
-                                xxx, xxx, LN, xxx
-  ),
-
-  [_LN] = LAYOUT_split_space_base(
-    DBLBK,          xxx,       xxx,       xxx,       xxx,     xxx,     xxx,     xxx,      xxx,     PASTA,
-	  xxx,          xxx,       xxx,       xxx,       xxx,     xxx,     xxx,     xxx,      xxx,     xxx,
-		LCTL(KC_A),   xxx,       xxx,       xxx,       xxx,     xxx,     xxx,     xxx,      xxx,     xxx,
-		LCTL(KC_Z),   xxx,   LCTL(KC_C), LCTL(KC_V),   xxx,     xxx,     xxx,     xxx,      xxx,   KC_PIPE,
-                                    xxx, xxx, xxx, xxx
+		KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,  KC_SCLN,
+		KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH,
+                GUI_T(KC_TAB), SFT_T(KC_BSPC), ALT_T(KC_SPC), CTL_T(KC_ENT)
   )
 };
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _FN:
-        rgblight_setrgb (RGB_BLUE);
-        break;
-    case _LN:
-        rgblight_setrgb (RGB_RED);
-        break;
-    default: //  for any other layers, or the default layer
-        rgblight_setrgb (RGB_WHITE);
-        break;
-    }
-  return state;
-}
