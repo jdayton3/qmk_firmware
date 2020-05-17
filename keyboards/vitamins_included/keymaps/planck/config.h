@@ -34,9 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MASTER_RIGHT
 #define RGBLIGHT_SPLIT
 
-#ifdef AUDIO_ENABLE
-  #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                SONG(DVORAK_SOUND), \
-                                SONG(COLEMAK_SOUND) \
-                              }
-#endif
