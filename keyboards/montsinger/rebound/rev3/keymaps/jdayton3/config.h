@@ -1,0 +1,3 @@
+#define ENCODER_DIRECTION_FLIP
+#define TAPPING_TERM 175
+

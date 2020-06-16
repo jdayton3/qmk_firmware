@@ -42,12 +42,12 @@ diode)
  *
  */
 
-#define MATRIX_ROW_PINS { F4, F5, D1, D0, B0 }
-#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5, B6, B2, B3, B1, F7, F6 }
+#define MATRIX_ROW_PINS { B4, A9, B13, A14, B9 }
+#define MATRIX_COL_PINS { B5, B6, B7, B2, B3, A10, B14, B15, A2, A1, A0, B8 }
 #define UNUSED_PINS { }
 
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D2 }
+#define ENCODERS_PAD_A { B4 }
+#define ENCODERS_PAD_B { B5 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
